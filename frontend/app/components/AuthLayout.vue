@@ -46,7 +46,7 @@
         <a
           href="https://www.instagram.com/bluestonethailand/"
           target="_blank"
-          class="rounded-full text-white transition-colors h-16 w-16 hover:scale-110 transition-transform duration-200"
+          class="rounded-full text-white transition-colors h-16 w-16 hover:scale-110 transition-transform duration-200 mt-2"
         >
           <img src="/img/icons-ig.png" alt="Instagram Logo" />
         </a>
