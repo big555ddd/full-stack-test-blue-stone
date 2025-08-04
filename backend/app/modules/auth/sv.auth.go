@@ -61,7 +61,7 @@ func (s *Service) Register(ctx context.Context, req *authdto.RegisterRequest) (*
 func (s *Service) Login(ctx context.Context, req *authdto.LoginRequest) (string, *jwt.Claims, error) {
 	user, err := s.user.Svc.GetByUsername(ctx, req.Username)
 	if err != nil {
-		return "", nil, err
+		return "", nil, errors.New(message.InvalidCredentials)
 	}
 
 	data := jwt.ClaimData{
