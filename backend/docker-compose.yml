@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=testdb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  main:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    command: http
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_DATABASE=testdb
+      - DB_USER=root
+      - DB_PASSWORD=secret
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+volumes:
+  mariadb_data:
